@@ -1,0 +1,23 @@
+<LogLabel>:
+    size_hint_y: None
+    height: 20
+    size: self.texture_size
+    text_size: self.width - 60, None
+    markup: True
+    font_size: 26
+
+<LogGridLayout>:
+    cols: 1
+    spacing: 10
+    size_hint_y: None
+    padding: [20, 20, 20, 20]
+    LogLabel:
+        text: "<!--------- Tracker Network Log ----------!>"
+        halign: "center"
+        font_size: 30
+
+
+
+<LogScrollView>:
+    size_hint: [1, 1]
+

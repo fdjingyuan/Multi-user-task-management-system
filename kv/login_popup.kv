@@ -1,0 +1,54 @@
+<Label>:
+    font_name: "resource/2.ttf"
+
+<LoginPopup>:
+	title: "登录Tracker"
+	auto_dismiss: False
+	title_font: "resource/2.ttf"
+	size_hint: 0.25, 0.35
+	pos_hint: {"center_x": 0.5, "center_y": 0.5}
+	username: username
+	password: password
+	BoxLayout:
+		padding: [5, 20, 5, 5]
+		spacing: 5
+		orientation: "vertical"
+		BoxLayout:
+			size_hint_y: 0.4
+			Label:
+				size_hint_x: 0.3
+				text_size: self.width, self.height
+				valign: "middle"
+				halign: "center"
+				text: "用户名："
+				font_size: 28
+			TextInput:
+				size_hint_x: 0.6
+				size_hint_y: 0.5
+				pos_hint: {"center_y": 0.5}
+				id: username
+				text: "ljy"
+				multiline: False
+		BoxLayout:
+			size_hint_y: 0.4
+			Label:
+				size_hint_x: 0.3
+				text_size: self.width, self.height
+				valign: "middle"
+				halign: "center"
+				text: "   密码："
+				font_size: 28
+			TextInput:
+				size_hint_x: 0.6
+				size_hint_y: 0.5
+				pos_hint: {"center_y": 0.5}
+				id: password
+				text: ""
+				multiline: False
+				password: True
+		Label:
+			size_hint_y: 0.05
+		Button:
+			text: "登录"
+			size_hint_y: 0.2
+			on_press: root.on_login()

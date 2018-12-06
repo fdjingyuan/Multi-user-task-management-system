@@ -1,0 +1,105 @@
+#:kivy 1.0
+#:set default_font_size "60dp"
+#:import rgb kivy.utils.get_color_from_hex
+#:import is_beyond_ddl misc.utils.is_beyond_ddl
+#:import get_date_display misc.utils.get_date_display
+#:import tag_colors misc.const.tag_colors
+
+
+<Label>:
+    font_name: "resource/2.ttf"
+
+<TaskItem>:
+    background_color: [0, 0, 0, 0]
+    size_hint: (0.8, None)
+    height: 160
+    BoxLayout:
+        padding: [24, 8, 27, 8]
+
+        BoxLayout: # 内侧（真正面板的开始）
+            canvas:
+                Color:
+                    rgba: (1, 1, 1, 0.85)
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            canvas.before:
+                Color:
+                    rgba: (0, 0, 0, 0.3)
+                Rectangle:
+                    pos: self.pos[0] + 3, self.pos[1] - 2
+                    size: self.size
+            BoxLayout: # 左侧彩条
+                size_hint_x: 0.0001 if "color_index" not in root.meta else 0.06
+                canvas:
+                    Color:
+                        rgba: [0, 0, 0, 0] if "color_index" not in root.meta else tag_colors[root.meta['color_index']]
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+            BoxLayout: # 右侧文字
+                size_hint_x: 0.95
+                orientation: 'vertical'
+                padding: [20, 0, 5, 0]
+                Label:
+                    text: root.meta['title']
+                    halign: 'left'
+                    valign: 'middle'
+                    text_size: (self.width, self.height)
+                    markup: True
+                    font_size: dp(13)
+                    color: 0, 0, 0, 1
+
+                    size_hint_y: 0.8
+
+                BoxLayout:
+                    size_hint_y: 0.4 if "date" in root.meta or "detail_info" in root.meta else 0.000001
+                    Label:
+                        text: get_date_display(root.meta['date']) if "date" in root.meta else ""
+                        halign: 'left'
+                        valign: "middle"
+                        text_size: (self.width, None)
+                        markup: True
+                        font_size: dp(13)
+                        color: [1, 0, 0.0, 0.8] if ("date" in root.meta and is_beyond_ddl(root.meta['date'])) else [0.5, 0.5, 0.5, 1] 
+                        font_name: "resource/SourceHanSans-Bold.otf" if ("date" in root.meta and is_beyond_ddl(root.meta['date'])) else self.font_name
+                    Label:
+                        text: "点击查看详情" if 'detail_info' in root.meta else ""
+                        halign: 'right'
+                        valign: "middle"
+                        text_size: (self.width, None)
+                        markup: True
+                        font_size: dp(13)
+                        color: [0.5, 0.5, 0.5, 1] 
+                        font_name: self.font_name
+
+
+<SingleListWrapper>:    
+    canvas:
+        Color:
+            rgba: (1, 1, 1, 0.3)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+        Color:
+            rgba: (0, 0, 0, 0.15)
+        Line:
+            width: 5
+            points: [self.x + 2.5, self.y - 2.5, self.x + self.width + 2.5, self.y - 2.5, self.x + self.width + 2.5, self.top - 2.5]
+    BoxLayout:
+        orientation: 'vertical'
+        padding: [0, 0]
+        BoxLayout:
+            size_hint_y: 0.09
+            Label:
+                font_name: "resource/lihei.otf"
+                text_size: self.size
+                font_size: dp(15)
+                text: root.list_name
+                color: 0, 0, 0, 0.8
+                halign: 'center'
+                valign: 'middle'
+                bold: True
+        MyListView:
+            id: my_list_view
+            data_list: root.data_list

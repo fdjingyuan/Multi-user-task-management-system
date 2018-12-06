@@ -1,0 +1,66 @@
+<Label>:
+    font_name: "resource/2.ttf"
+
+
+<BackGroundCard>:
+    button: button
+    background_path: "resource/1.jpg"
+    background_name: "A"
+    Button: 
+        id: button
+        background_normal: self.parent.background_path
+        x: self.parent.x
+        y: self.parent.y
+        size_hint: 1, 1
+        on_press: root.on_press()
+    Label: 
+        x: self.parent.x
+        y: self.parent.y
+        size_hint: 1, 0.2
+        canvas:
+            Color:
+                rgba: [1, 1, 1, 0.25]
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        text: self.parent.background_name
+        font_size: 30
+
+
+<BackGroundPopup>:
+    size_hint: .9, .8
+    pos_hint: {"x":0.11}
+    auto_dismiss: True
+    title: "更换主题"
+    # separator_color: [1, 1, 1, 0.6]
+    # separator_height: 1
+    title_font: "resource/2.ttf"
+    GridLayout:
+        padding: [10, 40, 10, 20]
+        spacing: 50
+        cols: 3
+        rows: 2
+        BackGroundCard:
+            popup: root
+            background_path: "resource/1.jpg"
+            background_name: "A"
+        BackGroundCard:
+            popup: root
+            background_path: "resource/2.jpeg"
+            background_name: "B"
+        BackGroundCard:
+            popup: root
+            background_path: "resource/3.jpeg"
+            background_name: "C"
+        BackGroundCard:
+            popup: root
+            background_path: "resource/4.jpeg"
+            background_name: "D"
+        BackGroundCard:
+            popup: root
+            background_path: "resource/5.jpeg"
+            background_name: "E"
+        BackGroundCard:
+            popup: root
+            background_path: "resource/6.jpeg"
+            background_name: "F"

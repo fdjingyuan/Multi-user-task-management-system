@@ -1,0 +1,19 @@
+<Label>:
+    font_name: "resource/2.ttf"
+
+<ErrorPopup>:
+	title: "错误！"
+	title_font: "resource/2.ttf"
+	size_hint: 0.3, 0.35
+	pos_hint: {"center_x": 0.5, "center_y": 0.5}
+	BoxLayout:
+		orientation: "vertical"
+		Label:
+			text: root.msg
+			size_hint_y: 0.8
+			text_size: self.width, self.height
+			valign: "middle"
+		Button:
+			text: "关闭"
+			size_hint_y: 0.2
+			on_press: root.dismiss()

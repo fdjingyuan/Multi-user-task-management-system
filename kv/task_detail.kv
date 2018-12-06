@@ -1,0 +1,182 @@
+#:import tag_colors misc.const.tag_colors
+
+<Label,TextInput>:
+    font_name: "resource/2.ttf"
+
+
+<LeftLabel>:
+	text_size: self.width, None
+	halign: "left"
+	vlaign: "middle"
+
+
+<SpinnerOption>:
+	height: 40
+
+
+<ColorSelectionButton>:
+	text: ""
+	background_normal: ""
+	background_color: [1, 1, 1, 1]
+	font_size: 40
+
+
+
+<TaskDetailPanel>:
+	title: title
+	year_spinner: year_spinner
+	month_spinner: month_spinner
+	day_spinner: day_spinner
+	color_selections: [color_selection_btn1, color_selection_btn2, color_selection_btn3, color_selection_btn4]
+	detail_info: detail_info
+
+	canvas.before:
+		Color:
+			rgba: [0, 0, 0, 1]
+		Rectangle:
+			pos: self.pos
+			size: self.size
+	orientation: "vertical"
+	# [padding_left, padding_top, padding_right, padding_bottom]
+	padding: [30, 20, 30, 20]
+	BoxLayout:
+		size_hint_y: 0.1
+		LeftLabel:
+			text: "任务名称："
+			size_hint_x: 0.3
+		TextInput:
+			id: title
+			size_hint_x: 0.7
+			size_hint_y: 0.5
+			pos_hint: {"center_y": 0.5}
+			multiline: False
+	BoxLayout:
+		size_hint_y: 0.1
+		LeftLabel:
+			text: "DDL："
+			size_hint_x: 0.20
+		YearSpinner:
+			id: year_spinner
+			panel: root
+			size_hint_x: 0.20
+			size_hint_y: 0.5
+			pos_hint: {"center_y": 0.5}
+			text: ""
+			values: ["", "2017", "2018"]
+		MonthSpinner:
+			id: month_spinner
+			panel: root
+			size_hint_x: 0.15 
+			size_hint_y: 0.5
+			pos_hint: {"center_y": 0.5}
+			text: ""
+			values: ["", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+		DaySpinner:
+			id: day_spinner
+			panel: root
+			size_hint_x: 0.15 
+			size_hint_y: 0.5
+			pos_hint: {"center_y": 0.5}
+			text: ""
+			values: [""]		
+		Label:
+			size_hint_x: 0.05
+		Label:
+			text: "标签："
+			size_hint_x: 0.15
+		BoxLayout:
+			size_hint_x: 0.5
+			spacing: 10
+			ColorSelectionButton:
+				id: color_selection_btn1
+				panel: root
+				size_hint_y: 0.5
+				pos_hint: {"center_y": 0.5}
+				background_color: tag_colors[0]	
+				text: ""
+			ColorSelectionButton:
+				id: color_selection_btn2
+				panel: root
+				size_hint_y: 0.5
+				pos_hint: {"center_y": 0.5}
+				background_color: tag_colors[1]
+				text: ""
+			ColorSelectionButton:
+				id: color_selection_btn3
+				panel: root
+				size_hint_y: 0.5
+				pos_hint: {"center_y": 0.5}
+				background_color: tag_colors[2]
+				text: ""
+			ColorSelectionButton:
+				id: color_selection_btn4
+				panel: root
+				size_hint_y: 0.5
+				pos_hint: {"center_y": 0.5}
+				background_color: tag_colors[3]
+				text: ""
+
+
+	BoxLayout:
+		size_hint_y: 0.1
+		LeftLabel:
+			text: "详细信息："
+	BoxLayout:
+		size_hint_y: 0.4
+		TextInput:
+			id: detail_info
+
+
+<TaskAddPopup>:
+	panel: panel
+	title: "添加任务"
+	title_font: "resource/2.ttf"
+	size_hint: None, None
+	size: 820, 950
+	BoxLayout:
+		orientation: "vertical"
+		TaskDetailPanel:
+			id: panel
+			size_hint_y: 0.9
+		BoxLayout:
+			padding: [0, 20, 0, 0]
+			spacing: 20
+			size_hint_y: 0.1
+			Label:
+				size_hint_x: 0.6
+			Button:
+				size_hint_x: 0.2
+				text: "添加"
+				on_press: root.add_task()
+			Button:
+				size_hint_x: 0.2
+				text: "取消"
+				on_press: root.dismiss()
+
+
+<TaskDetailPopup>:
+	panel: panel
+	title: "任务详情"
+	title_font: "resource/2.ttf"
+	size_hint: None, None
+	size: 820, 950
+	BoxLayout:
+		orientation: "vertical"
+		TaskDetailPanel:
+			id: panel
+			size_hint_y: 0.9
+		BoxLayout:
+			padding: [0, 20, 0, 0]
+			spacing: 20
+			size_hint_y: 0.1
+			Label:
+				size_hint_x: 0.6
+			Button:
+				size_hint_x: 0.2
+				text: "修改"
+				on_press: root.update_task()
+			Button:
+				size_hint_x: 0.2
+				text: "取消"
+				on_press: root.dismiss()
+

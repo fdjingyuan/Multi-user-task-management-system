@@ -1,0 +1,139 @@
+#:kivy 1.0
+#:set default_font_size "60dp"
+#:import rgb kivy.utils.get_color_from_hex
+#:import SingleListWrapper gui.task_list_view.SingleListWrapper
+#:import LogScrollView gui.log_scroll_view.LogScrollView
+
+<Label>:
+    font_name: "resource/2.ttf"
+
+
+<RootLayout>:
+    bottom_layout: bottom_layout
+    background_source: "resource/2.jpeg"
+    list_to_do: list_to_do
+    list_doing: list_doing
+    list_done: list_done
+
+    cols: 1
+    canvas:
+        Rectangle:
+            source: root.background_source
+            size: self.size
+            pos: self.pos
+    BoxLayout: 
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint_y: 0.07
+            canvas.before:
+                Color:
+                    rgba: (0, 0, 0, 0.4)
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            FloatLayout:
+                Label:
+                    font_name: "resource/Snell BT.ttf"
+                    font_size: 70
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                    text: "[b][i]Tracker[/i][/b]"
+                    bold: True
+                    markup: True
+                BoxLayout:
+                    spacing: 20
+                    padding: 20, 0
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                    Button:
+                        id: button_add
+                        size_hint: None, None
+                        size: 60, 60
+                        pos_hint: {'center_y': .5}
+                        background_normal: "resource/icon9.png"
+                        font_size: 40
+                        bold: True
+                        on_press: root.toggle_command()
+                    BoxLayout:
+                        size_hint_x: 0.8
+                    Button:
+                        id: button_add
+                        size_hint: None, None
+                        size: 60, 60
+                        pos_hint: {'center_y': .5}
+                        background_normal: "resource/icon2.png"
+                        font_size: 40
+                        bold: True
+                        on_press: root.add_task_popup()
+                    Button:
+                        id: button_refresh
+                        size_hint: None, None
+                        size: 60, 60
+                        pos_hint: {'center_y': .5}
+                        font_size: 40
+                        bold: True
+                        background_normal: "resource/icon7.png"
+                        on_press: root.refresh_list()
+                    Button:
+                        id: button_finished
+                        size_hint: None, None
+                        size: 60, 60
+                        pos_hint: {'center_y': .5}
+                        font_size: 40
+                        bold: True
+                        background_normal: "resource/icon5.png"
+                        on_press: root.archived_list()
+                    Button:
+                        size_hint: None, None
+                        size: 60, 60
+                        pos_hint: {'center_y': .5}
+                        font_size: 40
+                        bold: True
+                        background_normal: "resource/icon3.png"
+                        on_press: root.open_background_popup()
+
+        BoxLayout:
+            size_hint_y: 0.05
+
+        BoxLayout:
+            padding: [100, 0]
+            spacing: 100
+            size_hint_y: 0.8
+            SingleListWrapper:
+                id: list_to_do
+                list_name: "任务列表"
+                data_list: []
+            SingleListWrapper:
+                id: list_doing
+                list_name: "正在做"
+                data_list: []
+            SingleListWrapper:
+                id: list_done
+                list_name: "已完成"
+                data_list: []
+        BoxLayout:
+            size_hint_y: 0.05
+        BoxLayout:
+            id: bottom_layout
+            size_hint_y: 0.0000000001
+            canvas:
+                Color:
+                    rgba: (0, 0, 0, 0.7)
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            LogScrollView:
+
+
+
+<RootWidget>:
+    root_layout: root_layout
+    RootLayout:
+        id: root_layout
+        size: root.size
+        pos: root.pos
+
+
+
+
+
+
+
